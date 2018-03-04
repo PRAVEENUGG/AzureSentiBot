@@ -4,7 +4,7 @@ var rp = require('request-promise');
 var motivation = require("motivation");
 
 var header = {'Content-Type':'application/json', 'Ocp-Apim-Subscription-Key':'1277193539f24f758670261ecbc22120'}
-var requestUrl = 'https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment';
+var requestUrl = 'https://southeastasia.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment';
 
 // Setup Restify Server
 var server = restify.createServer();
