@@ -3,7 +3,7 @@ var builder = require('botbuilder');
 var rp = require('request-promise');
 var motivation = require("motivation");
 
-var header = {'Content-Type':'application/json', 'Ocp-Apim-Subscription-Key':'4d18afefacf847879e9450b99991bd59                                                            '}
+var header = {'Content-Type':'application/json', 'Ocp-Apim-Subscription-Key':'1277193539f24f758670261ecbc22120'                                                            '}
 var requestUrl = 'https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment';
 
 // Setup Restify Server
