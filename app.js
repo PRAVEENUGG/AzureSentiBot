@@ -2,9 +2,22 @@ var restify = require('restify');
 var builder = require('botbuilder');
 var rp = require('request-promise');
 var motivation = require("motivation");
+var azure = require('botbuilder-azure');
 
 var header = {'Content-Type':'application/json', 'Ocp-Apim-Subscription-Key':'1277193539f24f758670261ecbc22120'}
 var requestUrl = 'https://southeastasia.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment';
+
+//configure database settings
+var documentDbOptions = {
+    host: 'https://maintainstate.documents.azure.com:443/',
+    masterKey: 'L2M92OxHzLaYtw54ex60OBO8cZpbf9gOTEcqtoiLLuxAYJteRBsp3LSzomF24L98deeh3uC7Q1OO45ozPlRskw==',
+    database: 'botdocdb',
+    collection: 'botdata'
+};
+
+//Create objects to connect the Bot database
+var docDbClient = new azure.DocumentDbClient(documentDbOptions);
+var tableStorage = new azure.AzureBotStorage({ gzipData: false }, docDbClient);
 
 // Setup Restify Server
 var server = restify.createServer();
@@ -24,6 +37,9 @@ server.post('/api/messages', connector.listen());
 
 // Receive messages from the user and respond by echoing each message back (prefixed with 'You said:')
 var bot = new builder.UniversalBot(connector);
+bot.set('storage', tableStorage);
+// Enable Conversation Data persistence
+bot.set('persistConversationData', true);
 
 // Bot introduces itself and says hello upon conversation start
 bot.on('conversationUpdate', function (message) {
